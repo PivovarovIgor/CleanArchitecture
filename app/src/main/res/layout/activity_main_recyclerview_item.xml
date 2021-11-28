@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_medium"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".view.main.MainActivity">
 
     <TextView
         android:id="@+id/header_textview_recycler_item"

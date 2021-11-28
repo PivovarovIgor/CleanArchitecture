@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_medium"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".view.main.MainActivity">
 
     <FrameLayout
         android:id="@+id/success_linear_layout"
