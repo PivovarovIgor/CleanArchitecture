@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.annotations.SerializedName
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Scheduler
 
 interface View {
     fun renderData(appState: AppState)
@@ -76,4 +77,12 @@ abstract class BaseActivity<T : AppState> : AppCompatActivity(), View {
         super.onStop()
         presenter.detachView(this)
     }
+}
+
+//In the sake of testing
+interface ISchedulerProvider {
+
+    fun ui(): Scheduler
+
+    fun io(): Scheduler
 }
