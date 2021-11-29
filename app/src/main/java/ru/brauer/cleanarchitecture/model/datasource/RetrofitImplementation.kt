@@ -37,5 +37,4 @@ class RetrofitImplementation : DataSource<List<DataModel>> {
     companion object {
         private const val BASE_URL_LOCATION = "https://dictionary.skyeng.ru/api/public/v1/"
     }
-
 }

@@ -1,5 +1,6 @@
 package ru.brauer.cleanarchitecture.view.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -9,25 +10,31 @@ import ru.brauer.cleanarchitecture.*
 import ru.brauer.cleanarchitecture.databinding.ActivityMainBinding
 import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.cleanarchitecture.model.data.Meanings
 import ru.brauer.cleanarchitecture.presenter.Presenter
 import ru.brauer.cleanarchitecture.view.base.BaseActivity
 import ru.brauer.cleanarchitecture.view.base.View
 import ru.brauer.cleanarchitecture.view.main.adapter.MainAdapter
+import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
 
 class MainActivity : BaseActivity<AppState>() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainPresenter: MainPresenterImpl<AppState, View<AppState>>
 
     private var adapter: MainAdapter? = null
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                Toast.makeText(this@MainActivity, data.text, Toast.LENGTH_SHORT).show()
+                Intent(this@MainActivity, MeaningsActivity::class.java)
+                    .apply { putExtra(MeaningsActivity.MEANINGS_ACTIVITY_TAG, data) }
+                    .also { startActivity(it) }
             }
         }
 
-    override fun createPresenter(): Presenter<AppState, View> {
-        return MainPresenterImpl()
+    override fun createPresenter(): Presenter<AppState, View<AppState>> {
+        return MainPresenterImpl<AppState, View<AppState>>()
+            .also { mainPresenter = it }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +46,7 @@ class MainActivity : BaseActivity<AppState>() {
             searchDialogFragment.setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    presenter.getData(searchWord, true)
+                    mainPresenter.getData(searchWord, true)
                 }
             })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
@@ -97,7 +104,7 @@ class MainActivity : BaseActivity<AppState>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            presenter.getData("hi", true)
+            mainPresenter.getData("hi", true)
         }
     }
 
