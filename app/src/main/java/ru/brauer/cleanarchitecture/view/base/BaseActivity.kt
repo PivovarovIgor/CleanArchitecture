@@ -2,7 +2,6 @@ package ru.brauer.cleanarchitecture.view.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.presenter.Presenter
 
 abstract class BaseActivity<T> : AppCompatActivity(), View<T> {

@@ -1,5 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext {
+        androidXVersion = '1.4.0'
+        materialVersion = '1.4.0'
+        constraintlayoutVersion = '2.1.2'
+        coreKtxVersion = '1.7.0'
+        kotlinStdLib = '1.6.0'
+        rxJavaVersion = '3.0.0'
+        glideVersion = '4.12.0'
+        retrofitVersion = '2.9.0'
+        okhttp3Interceptor = '4.9.0'
+    }
     repositories {
         google()
         mavenCentral()
