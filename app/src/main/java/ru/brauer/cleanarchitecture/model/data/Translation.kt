@@ -6,6 +6,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Translation(
-    @field:SerializedName("text") val translation: String?,
-    @field:SerializedName("note") val note: String?
-) : Parcelable
+    @SerializedName(JSON_FIELD_TEXT) val translation: String?,
+    @SerializedName(JSON_FIELD_NOTE) val note: String?
+) : Parcelable {
+    companion object {
+        private const val JSON_FIELD_TEXT = "text"
+        private const val JSON_FIELD_NOTE = "note"
+    }
+}

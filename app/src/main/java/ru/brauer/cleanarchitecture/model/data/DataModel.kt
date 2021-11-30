@@ -6,6 +6,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class DataModel(
-    @field:SerializedName("text") val text: String?,
-    @field:SerializedName("meanings") val meanings: List<Meanings>?
-) : Parcelable
+    @SerializedName(JSON_FIELD_TEXT) val text: String?,
+    @SerializedName(JSON_FIELD_MEANINGS) val meanings: List<Meanings>?
+) : Parcelable {
+    companion object {
+        private const val JSON_FIELD_TEXT = "text"
+        private const val JSON_FIELD_MEANINGS = "meanings"
+    }
+}

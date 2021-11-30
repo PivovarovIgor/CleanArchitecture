@@ -6,6 +6,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Meanings(
-    @field:SerializedName("translation") val translation: Translation?,
-    @field:SerializedName("imageUrl") val imageUrl: String?
-) : Parcelable
+    @SerializedName(JSON_FIELD_TRANSLATION) val translation: Translation?,
+    @SerializedName(JSON_FIELD_IMAGE_URL) val imageUrl: String?
+) : Parcelable {
+    companion object {
+        private const val JSON_FIELD_TRANSLATION = "translation"
+        private const val JSON_FIELD_IMAGE_URL = "imageUrl"
+    }
+}
