@@ -44,11 +44,15 @@ class MeaningsAdapter : RecyclerView.Adapter<MeaningsAdapter.ViewHolder>() {
                     }
                 Glide.with(image)
                     .load(Uri.Builder()
-                        .scheme("https")
+                        .scheme(SCHEME_OF_URL_IMAGE)
                         .encodedPath(meanings.imageUrl)
                         .build())
                     .into(image)
             }
         }
+    }
+
+    companion object {
+        private const val SCHEME_OF_URL_IMAGE = "https"
     }
 }
