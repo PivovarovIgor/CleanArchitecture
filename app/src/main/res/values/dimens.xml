@@ -27,6 +27,6 @@
     <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
 
     //size image
-    <dimen name="image_size_preview">50dp</dimen>
+    <dimen name="image_size_preview">100dp</dimen>
 
 </resources>

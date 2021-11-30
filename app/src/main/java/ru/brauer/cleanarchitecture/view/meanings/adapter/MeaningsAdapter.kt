@@ -43,7 +43,10 @@ class MeaningsAdapter : RecyclerView.Adapter<MeaningsAdapter.ViewHolder>() {
                         note.text = it.note
                     }
                 Glide.with(image)
-                    .load(Uri.parse(meanings.imageUrl))
+                    .load(Uri.Builder()
+                        .scheme("https")
+                        .encodedPath(meanings.imageUrl)
+                        .build())
                     .into(image)
             }
         }
