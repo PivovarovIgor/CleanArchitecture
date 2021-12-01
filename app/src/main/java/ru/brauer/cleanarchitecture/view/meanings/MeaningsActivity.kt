@@ -1,16 +1,27 @@
 package ru.brauer.cleanarchitecture.view.meanings
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.brauer.cleanarchitecture.App
 import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
+import ru.brauer.cleanarchitecture.di.viewmodel.ViewModelFactory
 import ru.brauer.cleanarchitecture.model.data.DataModel
 import ru.brauer.cleanarchitecture.model.data.Meanings
-import ru.brauer.cleanarchitecture.presenter.Presenter
-import ru.brauer.cleanarchitecture.view.base.BaseActivity
-import ru.brauer.cleanarchitecture.view.base.View
 import ru.brauer.cleanarchitecture.view.meanings.adapter.MeaningsAdapter
+import javax.inject.Inject
 
-class MeaningsActivity : BaseActivity<List<Meanings>>() {
+class MeaningsActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel: MeaningsViewModel by lazy {
+        ViewModelProvider(
+            this@MeaningsActivity,
+            viewModelFactory,
+        ).get(MeaningsViewModel::class.java)
+    }
 
     private val binding: ActivityMeaningsBinding by lazy {
         ActivityMeaningsBinding.inflate(layoutInflater)
@@ -20,10 +31,6 @@ class MeaningsActivity : BaseActivity<List<Meanings>>() {
         MeaningsAdapter()
     }
 
-    private val meaningsPresenter: MeaningsPresenterImpl<List<Meanings>, View<List<Meanings>>> by lazy {
-        MeaningsPresenterImpl()
-    }
-
     private val dataModel: DataModel by lazy {
         requireNotNull(intent.getParcelableExtra(MEANINGS_ACTIVITY_TAG))
     }
@@ -31,23 +38,18 @@ class MeaningsActivity : BaseActivity<List<Meanings>>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        App.instance.appComponent.inject(this)
         with(binding.recyclerviewMeanings) {
             layoutManager = LinearLayoutManager(this@MeaningsActivity)
             adapter = this@MeaningsActivity.adapter
         }
+        with(viewModel) {
+            liveData.observe(this@MeaningsActivity, ::renderData)
+            getData(dataModel)
+        }
     }
 
-    override fun createPresenter(): Presenter<List<Meanings>, View<List<Meanings>>> {
-        return meaningsPresenter
-    }
-
-    override fun onStart() {
-        super.onStart()
-        meaningsPresenter.getData(dataModel)
-    }
-
-    override fun renderData(appState: List<Meanings>) {
+    private fun renderData(appState: List<Meanings>) {
         adapter.setData(appState)
     }
 

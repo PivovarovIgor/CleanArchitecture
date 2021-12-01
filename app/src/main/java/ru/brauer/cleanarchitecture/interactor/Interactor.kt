@@ -1,4 +1,4 @@
-package ru.brauer.cleanarchitecture.presenter
+package ru.brauer.cleanarchitecture.interactor
 
 import io.reactivex.rxjava3.core.Observable
 

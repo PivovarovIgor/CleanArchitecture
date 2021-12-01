@@ -4,23 +4,30 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.brauer.cleanarchitecture.*
 import ru.brauer.cleanarchitecture.databinding.ActivityMainBinding
+import ru.brauer.cleanarchitecture.di.viewmodel.ViewModelFactory
 import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.model.data.DataModel
-import ru.brauer.cleanarchitecture.model.data.Meanings
-import ru.brauer.cleanarchitecture.presenter.Presenter
-import ru.brauer.cleanarchitecture.view.base.BaseActivity
-import ru.brauer.cleanarchitecture.view.base.View
 import ru.brauer.cleanarchitecture.view.main.adapter.MainAdapter
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
+import javax.inject.Inject
 
-class MainActivity : BaseActivity<AppState>() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainPresenter: MainPresenterImpl<AppState, View<AppState>>
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(
+            this@MainActivity,
+            viewModelFactory
+        ).get(MainViewModel::class.java)
+    }
 
     private var adapter: MainAdapter? = null
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
@@ -32,28 +39,25 @@ class MainActivity : BaseActivity<AppState>() {
             }
         }
 
-    override fun createPresenter(): Presenter<AppState, View<AppState>> {
-        return MainPresenterImpl<AppState, View<AppState>>()
-            .also { mainPresenter = it }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        App.instance.appComponent.inject(this)
         setContentView(binding.root)
+        viewModel.liveData.observe(this, ::renderData)
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    mainPresenter.getData(searchWord, true)
+                    viewModel.getData(searchWord, true)
                 }
             })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
     }
 
-    override fun renderData(appState: AppState) {
+    private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
                 val dataModel = appState.data
@@ -104,7 +108,7 @@ class MainActivity : BaseActivity<AppState>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            mainPresenter.getData("hi", true)
+            viewModel.getData("hi", true)
         }
     }
 

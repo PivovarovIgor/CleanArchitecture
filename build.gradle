@@ -5,6 +5,7 @@ buildscript {
         materialVersion = '1.4.0'
         constraintlayoutVersion = '2.1.2'
         coreKtxVersion = '1.7.0'
+        dagger2Version = '2.40'
         kotlinStdLib = '1.6.0'
         rxJavaVersion = '3.0.0'
         glideVersion = '4.12.0'
