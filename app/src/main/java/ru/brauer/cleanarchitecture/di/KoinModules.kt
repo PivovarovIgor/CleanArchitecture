@@ -19,45 +19,49 @@ import ru.brauer.cleanarchitecture.view.main.MainInteractor
 import ru.brauer.cleanarchitecture.view.main.MainViewModel
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsViewModel
 
-const val NAMED_INJECTION_REMOTE_REPO = "remoteRepo"
-const val NAMED_INJECTION_LOCAL_REPO = "localRepo"
 
-val mainModule = module {
+object DI {
 
-    single<Repository<List<DataModel>>>(named(NAMED_INJECTION_REMOTE_REPO))
-    {
-        RepositoryImplementation(
-            dataSource = DataSourceRemote(
-                remoteProvider = RetrofitImplementation()
+    private const val NAMED_INJECTION_REMOTE_REPO = "remoteRepo"
+    private const val NAMED_INJECTION_LOCAL_REPO = "localRepo"
+
+    val mainModule = module {
+
+        single<Repository<List<DataModel>>>(named(NAMED_INJECTION_REMOTE_REPO))
+        {
+            RepositoryImplementation(
+                dataSource = DataSourceRemote(
+                    remoteProvider = RetrofitImplementation()
+                )
             )
-        )
-    }
+        }
 
-    single<Repository<List<DataModel>>>(named(NAMED_INJECTION_LOCAL_REPO)) {
-        RepositoryImplementation(
-            dataSource = DataSourceLocal(
-                localProvider = RoomDataBaseImplementation()
+        single<Repository<List<DataModel>>>(named(NAMED_INJECTION_LOCAL_REPO)) {
+            RepositoryImplementation(
+                dataSource = DataSourceLocal(
+                    localProvider = RoomDataBaseImplementation()
+                )
             )
-        )
+        }
+
+        single { CompositeDisposable() }
+        single<ISchedulerProvider> { SchedulerProvider() }
+
+        factory<Interactor<AppState>> {
+            MainInteractor(
+                remoteRepository = get(named(NAMED_INJECTION_REMOTE_REPO)),
+                localRepository = get(named(NAMED_INJECTION_LOCAL_REPO))
+            )
+        }
+
+        viewModel {
+            MainViewModel(
+                interactor = get(),
+                compositeDisposable = get(),
+                schedulerProvider = get()
+            )
+        }
+
+        viewModel { MeaningsViewModel(compositeDisposable = get()) }
     }
-
-    single { CompositeDisposable() }
-    single<ISchedulerProvider> { SchedulerProvider() }
-
-    factory<Interactor<AppState>> {
-        MainInteractor(
-            remoteRepository = get(named(NAMED_INJECTION_REMOTE_REPO)),
-            localRepository = get(named(NAMED_INJECTION_LOCAL_REPO))
-        )
-    }
-
-    viewModel {
-        MainViewModel(
-            interactor = get(),
-            compositeDisposable = get(),
-            schedulerProvider = get()
-        )
-    }
-
-    viewModel { MeaningsViewModel(compositeDisposable = get()) }
 }
