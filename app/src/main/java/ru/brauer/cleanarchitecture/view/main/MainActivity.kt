@@ -5,29 +5,20 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.brauer.cleanarchitecture.*
 import ru.brauer.cleanarchitecture.databinding.ActivityMainBinding
-import ru.brauer.cleanarchitecture.di.viewmodel.ViewModelFactory
 import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.model.data.DataModel
 import ru.brauer.cleanarchitecture.view.main.adapter.MainAdapter
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(
-            this@MainActivity,
-            viewModelFactory
-        ).get(MainViewModel::class.java)
-    }
+    private val viewModel: MainViewModel by viewModel()
 
     private var adapter: MainAdapter? = null
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
@@ -42,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        App.instance.appComponent.inject(this)
         setContentView(binding.root)
         viewModel.liveData.observe(this, ::renderData)
         binding.searchFab.setOnClickListener {

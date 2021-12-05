@@ -1,22 +1,15 @@
 package ru.brauer.cleanarchitecture
 
 import android.app.Application
-import ru.brauer.cleanarchitecture.di.AppComponent
-import ru.brauer.cleanarchitecture.di.DaggerAppComponent
+import org.koin.core.context.startKoin
+import ru.brauer.cleanarchitecture.di.mainModule
 
 class App : Application() {
 
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder()
-            .build()
-    }
-
     override fun onCreate() {
         super.onCreate()
-        instance = this
-    }
-
-    companion object {
-        lateinit var instance: App
+        startKoin {
+            modules(listOf(mainModule))
+        }
     }
 }

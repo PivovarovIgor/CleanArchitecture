@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableObserver
-import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.interactor.Interactor
+import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.rx.ISchedulerProvider
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val interactor: Interactor<AppState>,
     private val compositeDisposable: CompositeDisposable,
     private val schedulerProvider: ISchedulerProvider

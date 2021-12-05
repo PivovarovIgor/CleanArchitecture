@@ -2,26 +2,16 @@ package ru.brauer.cleanarchitecture.view.meanings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.brauer.cleanarchitecture.App
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
-import ru.brauer.cleanarchitecture.di.viewmodel.ViewModelFactory
 import ru.brauer.cleanarchitecture.model.data.DataModel
 import ru.brauer.cleanarchitecture.model.data.Meanings
 import ru.brauer.cleanarchitecture.view.meanings.adapter.MeaningsAdapter
-import javax.inject.Inject
 
 class MeaningsActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel: MeaningsViewModel by lazy {
-        ViewModelProvider(
-            this@MeaningsActivity,
-            viewModelFactory,
-        ).get(MeaningsViewModel::class.java)
-    }
+    private val viewModel: MeaningsViewModel by viewModel()
 
     private val binding: ActivityMeaningsBinding by lazy {
         ActivityMeaningsBinding.inflate(layoutInflater)
@@ -38,7 +28,6 @@ class MeaningsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        App.instance.appComponent.inject(this)
         with(binding.recyclerviewMeanings) {
             layoutManager = LinearLayoutManager(this@MeaningsActivity)
             adapter = this@MeaningsActivity.adapter

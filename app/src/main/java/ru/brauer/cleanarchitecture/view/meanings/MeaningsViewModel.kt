@@ -7,9 +7,8 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.brauer.cleanarchitecture.model.data.DataModel
 import ru.brauer.cleanarchitecture.model.data.Meanings
-import javax.inject.Inject
 
-class MeaningsViewModel @Inject constructor(
+class MeaningsViewModel(
     private val compositeDisposable: CompositeDisposable
 ) : ViewModel() {
 
