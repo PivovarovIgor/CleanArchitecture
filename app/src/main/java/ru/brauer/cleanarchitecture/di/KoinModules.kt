@@ -27,13 +27,11 @@ import ru.brauer.cleanarchitecture.view.meanings.MeaningsViewModel
 
 object DI {
 
-    private const val NAMED_INJECTION_REMOTE_REPO = "remoteRepo"
-    private const val NAMED_INJECTION_LOCAL_REPO = "localRepo"
     private const val DATABASE_FILE_NAME = "database.db"
 
     val mainModule = module {
 
-        single<Repository<List<DataModel>>>(named(NAMED_INJECTION_REMOTE_REPO))
+        single<Repository<List<DataModel>>>
         {
             RepositoryImplementation(
                 dataSource = DataSourceRemote(
@@ -41,7 +39,6 @@ object DI {
                 )
             )
         }
-
 
         single { CompositeDisposable() }
         single<ISchedulerProvider> { SchedulerProvider() }
@@ -58,7 +55,7 @@ object DI {
 
         factory<Interactor<AppState>> {
             MainInteractor(
-                remoteRepository = get(named(NAMED_INJECTION_REMOTE_REPO)),
+                remoteRepository = get(),
                 localRepository = get()
             )
         }
