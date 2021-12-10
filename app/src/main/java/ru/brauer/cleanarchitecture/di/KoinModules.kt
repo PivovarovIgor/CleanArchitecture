@@ -1,10 +1,11 @@
 package ru.brauer.cleanarchitecture.di
 
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import ru.brauer.cleanarchitecture.interactor.Interactor
 import ru.brauer.cleanarchitecture.model.data.AppState
@@ -46,11 +47,19 @@ object DI {
         single { DataSourceLocal(get()) }
         single { RoomDataBaseImplementation() }
         single {
+
+            val MIGRATION_1_2 = object : Migration(1, 2) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("CREATE TABLE search_history (data_time INTEGER NOT NULL, search_word TEXT NOT NULL, PRIMARY KEY(data_time))")
+                }
+            }
+
             Room.databaseBuilder(
                 androidContext(),
                 AppDataBase::class.java,
                 DATABASE_FILE_NAME
-            ).build()
+            ).addMigrations(MIGRATION_1_2)
+                .build()
         }
 
         factory<Interactor<AppState>> {

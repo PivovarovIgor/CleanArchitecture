@@ -5,10 +5,13 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
-        Word::class
+        Word::class,
+        SearchWord::class
     ],
-    version = 1
+    version = 2,
+    exportSchema = true
 )
 abstract class AppDataBase : RoomDatabase() {
     abstract fun wordsDao(): WordDao
+    abstract fun searchWordDao(): SearchWordDao
 }
