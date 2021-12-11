@@ -14,6 +14,7 @@ class MainInteractor(
     override fun getData(word: String, fromRemoteSource: Boolean): Observable<AppState> {
         return if (fromRemoteSource) {
             remoteRepository.getData(word)
+                .doOnSubscribe { localRepository.writeHistoryOfSearching(word) }
                 .map {
                     localRepository.writeResultsOfSearch(it)
                     AppState.Success(it)
