@@ -12,16 +12,17 @@ import ru.brauer.cleanarchitecture.model.datasource.DataSource
 class RoomDataBaseImplementation : DataSource<List<DataModel>> {
 
     private val scopeIo = CoroutineScope(Dispatchers.IO)
-    private var databaseWordWriting: Job? = null
+    private var databaseResultSearchWriting: Job? = null
+    private var databaseSearchWordWriting: Job? = null
 
     private val database: AppDataBase by inject(AppDataBase::class.java)
 
     override fun getData(word: String): Observable<List<DataModel>> =
         Observable.fromCallable { database.wordsDao().findWord(word).toBusinessModel() }
 
-    fun writeData(words: List<DataModel>) {
-        databaseWordWriting?.cancel()
-        databaseWordWriting = scopeIo.launch {
+    fun writeResultsOfSearch(words: List<DataModel>) {
+        databaseResultSearchWriting?.cancel()
+        databaseResultSearchWriting = scopeIo.launch {
             database.wordsDao().insert(words.toDatabaseEntity())
         }
     }
@@ -42,4 +43,11 @@ class RoomDataBaseImplementation : DataSource<List<DataModel>> {
                 name = it.text ?: ""
             )
         }
+
+    fun writeHistoryOfSearching(searchWord: String) {
+        databaseSearchWordWriting?.cancel()
+        databaseSearchWordWriting = scopeIo.launch {
+            database.searchWordDao().insert(SearchWord(System.currentTimeMillis(), searchWord))
+        }
+    }
 }

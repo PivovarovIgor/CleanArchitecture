@@ -8,7 +8,11 @@ class RepositoryLocalImplementation(private val dataSource: DataSourceLocal) : R
     override fun getData(word: String): Observable<List<DataModel>> {
         return dataSource.getData(word)
     }
-    override fun writeData(words: List<DataModel>) {
-        dataSource.writeData(words)
+    override fun writeResultsOfSearch(words: List<DataModel>) {
+        dataSource.writeResultsOfSearch(words)
+    }
+
+    override fun writeHistoryOfSearching(searchWord: String) {
+        dataSource.writeHistoryOfSearching(searchWord)
     }
 }

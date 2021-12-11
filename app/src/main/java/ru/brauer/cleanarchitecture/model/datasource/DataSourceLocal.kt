@@ -9,6 +9,10 @@ class DataSourceLocal(private val localProvider: RoomDataBaseImplementation = Ro
     override fun getData(word: String): Observable<List<DataModel>> =
         localProvider.getData(word)
 
-    fun writeData(words: List<DataModel>) =
-        localProvider.writeData(words)
+    fun writeResultsOfSearch(words: List<DataModel>) =
+        localProvider.writeResultsOfSearch(words)
+
+    fun writeHistoryOfSearching(searchWord: String) {
+        localProvider.writeHistoryOfSearching(searchWord)
+    }
 }

@@ -15,7 +15,7 @@ class MainInteractor(
         return if (fromRemoteSource) {
             remoteRepository.getData(word)
                 .map {
-                    localRepository.writeData(it)
+                    localRepository.writeResultsOfSearch(it)
                     AppState.Success(it)
                 }
         } else {
