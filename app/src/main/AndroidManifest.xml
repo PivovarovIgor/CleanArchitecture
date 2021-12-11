@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleanArchitecture">
         <activity
+            android:name=".view.history.HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.meanings.MeaningsActivity"
             android:exported="false" />
         <activity

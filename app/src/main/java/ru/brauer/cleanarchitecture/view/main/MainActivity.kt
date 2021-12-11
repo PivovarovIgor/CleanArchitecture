@@ -2,6 +2,8 @@ package ru.brauer.cleanarchitecture.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import ru.brauer.cleanarchitecture.*
 import ru.brauer.cleanarchitecture.databinding.ActivityMainBinding
 import ru.brauer.cleanarchitecture.model.data.AppState
 import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.cleanarchitecture.view.history.HistoryActivity
 import ru.brauer.cleanarchitecture.view.main.adapter.MainAdapter
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
 
@@ -34,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+
         viewModel.liveData.observe(this, ::renderData)
         binding.searchFab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
@@ -45,6 +51,20 @@ class MainActivity : AppCompatActivity() {
             })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_go_to_history) {
+            Intent(this, HistoryActivity::class.java)
+                .also { startActivity(it) }
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun renderData(appState: AppState) {

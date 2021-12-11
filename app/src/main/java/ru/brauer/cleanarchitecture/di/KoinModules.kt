@@ -15,12 +15,11 @@ import ru.brauer.cleanarchitecture.model.datasource.DataSourceRemote
 import ru.brauer.cleanarchitecture.model.datasource.RetrofitImplementation
 import ru.brauer.cleanarchitecture.model.datasource.database.AppDataBase
 import ru.brauer.cleanarchitecture.model.datasource.database.RoomDataBaseImplementation
-import ru.brauer.cleanarchitecture.model.repository.Repository
-import ru.brauer.cleanarchitecture.model.repository.RepositoryImplementation
-import ru.brauer.cleanarchitecture.model.repository.RepositoryLocal
-import ru.brauer.cleanarchitecture.model.repository.RepositoryLocalImplementation
+import ru.brauer.cleanarchitecture.model.datasource.database.SearchWord
+import ru.brauer.cleanarchitecture.model.repository.*
 import ru.brauer.cleanarchitecture.rx.ISchedulerProvider
 import ru.brauer.cleanarchitecture.rx.SchedulerProvider
+import ru.brauer.cleanarchitecture.view.history.HistoryViewModel
 import ru.brauer.cleanarchitecture.view.main.MainInteractor
 import ru.brauer.cleanarchitecture.view.main.MainViewModel
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsViewModel
@@ -61,6 +60,7 @@ object DI {
             ).addMigrations(MIGRATION_1_2)
                 .build()
         }
+        single<HistoryRepository<List<SearchWord>>> { HistoryRepositoryImpl(database = get()) }
 
         factory<Interactor<AppState>> {
             MainInteractor(
@@ -78,5 +78,7 @@ object DI {
         }
 
         viewModel { MeaningsViewModel(compositeDisposable = get()) }
+
+        viewModel { HistoryViewModel(repository = get()) }
     }
 }
