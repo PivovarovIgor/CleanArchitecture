@@ -1,5 +1,6 @@
 package ru.brauer.cleanarchitecture.view.meanings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
 import ru.brauer.cleanarchitecture.model.data.DataModel
 import ru.brauer.cleanarchitecture.model.data.Meanings
+import ru.brauer.cleanarchitecture.view.detail.DetailsActivity
 import ru.brauer.cleanarchitecture.view.meanings.adapter.MeaningsAdapter
 
 class MeaningsActivity : AppCompatActivity() {
@@ -18,7 +20,14 @@ class MeaningsActivity : AppCompatActivity() {
     }
 
     private val adapter: MeaningsAdapter by lazy {
-        MeaningsAdapter()
+        MeaningsAdapter(object : MeaningsAdapter.OnListItemClickListener {
+            override fun onItemClick(data: Meanings) {
+                Intent(this@MeaningsActivity, DetailsActivity::class.java)
+                    .apply {
+                        putExtra(DetailsActivity.KEY_DETAIL_DATA, data)
+                    }.also { startActivity(it) }
+            }
+        })
     }
 
     private val dataModel: DataModel by lazy {

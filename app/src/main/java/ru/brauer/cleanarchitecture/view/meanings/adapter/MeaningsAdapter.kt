@@ -8,7 +8,8 @@ import com.bumptech.glide.Glide
 import ru.brauer.cleanarchitecture.databinding.ActiviyMeaningsRecyclerviewItemBinding
 import ru.brauer.cleanarchitecture.model.data.Meanings
 
-class MeaningsAdapter : RecyclerView.Adapter<MeaningsAdapter.ViewHolder>() {
+class MeaningsAdapter(private val onListItemClickListener: OnListItemClickListener) :
+    RecyclerView.Adapter<MeaningsAdapter.ViewHolder>() {
 
     private var data: List<Meanings>? = null
 
@@ -43,13 +44,24 @@ class MeaningsAdapter : RecyclerView.Adapter<MeaningsAdapter.ViewHolder>() {
                         note.text = it.note
                     }
                 Glide.with(image)
-                    .load(Uri.Builder()
-                        .scheme(SCHEME_OF_URL_IMAGE)
-                        .encodedPath(meanings.imageUrl)
-                        .build())
+                    .load(
+                        Uri.Builder()
+                            .scheme(SCHEME_OF_URL_IMAGE)
+                            .encodedPath(meanings.imageUrl)
+                            .build()
+                    )
                     .into(image)
             }
+            itemView.setOnClickListener { openNewWindow(meanings) }
         }
+    }
+
+    private fun openNewWindow(listItemData: Meanings) {
+        onListItemClickListener.onItemClick(listItemData)
+    }
+
+    interface OnListItemClickListener {
+        fun onItemClick(data: Meanings)
     }
 
     companion object {

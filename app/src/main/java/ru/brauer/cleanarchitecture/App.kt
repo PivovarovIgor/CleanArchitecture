@@ -1,6 +1,7 @@
 package ru.brauer.cleanarchitecture
 
 import android.app.Application
+import android.content.Context
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import ru.brauer.cleanarchitecture.di.DI
