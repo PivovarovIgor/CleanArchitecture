@@ -10,6 +10,22 @@ import Versions.OKHTTP_3_INTERCEPTOR_VERSION
 import Versions.RETROFIT_VERSION
 import Versions.ROOM_VERSION
 import Versions.RX_LAVA_VERSION
+import org.gradle.api.JavaVersion
+
+object Config {
+    const val APPLICATION_ID = "ru.brauer.cleanarchitecture"
+    const val COMPILE_SDK = 31
+    const val BUILD_TOOLS_VERSION = "31"
+    const val MIN_SDK = 23
+    const val TARGET_SDK = 31
+    val JAVA_VERSION = JavaVersion.VERSION_1_8
+    const val JVM_TARGET = "1.8"
+}
+
+object Releases {
+    const val VERSION_CODE = 1
+    const val VERSION_NAME = "1.0"
+}
 
 object Versions {
     const val ANDROIDX_VERSION = "1.4.0"

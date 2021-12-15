@@ -7,15 +7,15 @@ plugins {
 
 android {
 
-    compileSdk = 31
-    buildToolsVersion = "31"
+    compileSdk = Config.COMPILE_SDK
+    buildToolsVersion = Config.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId = "ru.brauer.cleanarchitecture"
-        minSdk = 23
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.APPLICATION_ID
+        minSdk = Config.MIN_SDK
+        targetSdk = Config.TARGET_SDK
+        versionCode = Releases.VERSION_CODE
+        versionName = Releases.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -39,11 +39,11 @@ android {
         viewBinding = true
     }
     compileOptions {
-        sourceCompatibility(JavaVersion.VERSION_1_8)
-        targetCompatibility(JavaVersion.VERSION_1_8)
+        sourceCompatibility(Config.JAVA_VERSION)
+        targetCompatibility(Config.JAVA_VERSION)
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Config.JVM_TARGET
     }
 }
 
