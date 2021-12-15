@@ -3,7 +3,7 @@ package ru.brauer.cleanarchitecture.model.datasource
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.appcore.model.data.DataModel
 
 interface ApiService {
     @GET("words/search")

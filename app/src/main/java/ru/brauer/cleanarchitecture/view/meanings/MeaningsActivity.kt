@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
-import ru.brauer.cleanarchitecture.model.data.DataModel
-import ru.brauer.cleanarchitecture.model.data.Meanings
+import ru.brauer.appcore.model.data.DataModel
+import ru.brauer.appcore.model.data.Meanings
 import ru.brauer.cleanarchitecture.view.detail.DetailsActivity
 import ru.brauer.cleanarchitecture.view.meanings.adapter.MeaningsAdapter
 

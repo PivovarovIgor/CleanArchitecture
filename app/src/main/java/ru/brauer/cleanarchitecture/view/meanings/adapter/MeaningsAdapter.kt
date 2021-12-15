@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.brauer.cleanarchitecture.databinding.ActiviyMeaningsRecyclerviewItemBinding
-import ru.brauer.cleanarchitecture.model.data.Meanings
+import ru.brauer.appcore.model.data.Meanings
 
 class MeaningsAdapter(private val onListItemClickListener: OnListItemClickListener) :
     RecyclerView.Adapter<MeaningsAdapter.ViewHolder>() {

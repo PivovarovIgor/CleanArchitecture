@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import ru.brauer.cleanarchitecture.model.data.DataModel
-import ru.brauer.cleanarchitecture.model.data.Meanings
+import ru.brauer.appcore.model.data.DataModel
+import ru.brauer.appcore.model.data.Meanings
 
 class MeaningsViewModel(
     private val compositeDisposable: CompositeDisposable

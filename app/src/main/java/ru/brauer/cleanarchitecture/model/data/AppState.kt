@@ -1,5 +1,7 @@
 package ru.brauer.cleanarchitecture.model.data
 
+import ru.brauer.appcore.model.data.DataModel
+
 sealed class AppState {
 
     data class Success(val data: List<DataModel>?) : AppState()

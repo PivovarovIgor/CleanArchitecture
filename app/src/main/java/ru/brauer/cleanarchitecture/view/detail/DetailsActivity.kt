@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import ru.brauer.cleanarchitecture.databinding.ActivityDetailBinding
-import ru.brauer.cleanarchitecture.model.data.Meanings
+import ru.brauer.appcore.model.data.Meanings
 
 class DetailsActivity : AppCompatActivity() {
 

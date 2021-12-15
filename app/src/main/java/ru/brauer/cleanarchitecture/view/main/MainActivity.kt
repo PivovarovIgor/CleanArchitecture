@@ -12,7 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.brauer.cleanarchitecture.*
 import ru.brauer.cleanarchitecture.databinding.ActivityMainBinding
 import ru.brauer.cleanarchitecture.model.data.AppState
-import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.appcore.model.data.DataModel
 import ru.brauer.cleanarchitecture.view.history.HistoryActivity
 import ru.brauer.cleanarchitecture.view.main.adapter.MainAdapter
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity

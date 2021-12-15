@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.appcore.model.data.DataModel
 import ru.brauer.cleanarchitecture.R
 
 class MainAdapter(

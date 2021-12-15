@@ -1,0 +1,27 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+}
+
+android {
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation Dependencies.CORE_KTX_DEP
+    implementation Dependencies.ANDROIDX_DEP
+    implementation Dependencies.MATERIAL_DEP
+    implementation Dependencies.RETROFIT_2_CONVERTER_GSON_DEP
+}

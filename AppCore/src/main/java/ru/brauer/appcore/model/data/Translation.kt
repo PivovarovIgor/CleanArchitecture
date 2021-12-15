@@ -1,4 +1,4 @@
-package ru.brauer.cleanarchitecture.model.data
+package ru.brauer.appcore.model.data
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

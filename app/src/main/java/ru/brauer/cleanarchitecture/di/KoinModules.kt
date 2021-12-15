@@ -9,7 +9,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.brauer.cleanarchitecture.interactor.Interactor
 import ru.brauer.cleanarchitecture.model.data.AppState
-import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.appcore.model.data.DataModel
 import ru.brauer.cleanarchitecture.model.datasource.DataSourceLocal
 import ru.brauer.cleanarchitecture.model.datasource.DataSourceRemote
 import ru.brauer.cleanarchitecture.model.datasource.RetrofitImplementation

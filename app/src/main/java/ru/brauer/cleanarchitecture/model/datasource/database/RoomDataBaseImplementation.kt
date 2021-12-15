@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
-import ru.brauer.cleanarchitecture.model.data.DataModel
+import ru.brauer.appcore.model.data.DataModel
 import ru.brauer.cleanarchitecture.model.datasource.DataSource
 
 class RoomDataBaseImplementation : DataSource<List<DataModel>> {
