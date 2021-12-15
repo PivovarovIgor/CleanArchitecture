@@ -47,7 +47,12 @@ class RoomDataBaseImplementation : DataSource<List<DataModel>> {
     fun writeHistoryOfSearching(searchWord: String) {
         databaseSearchWordWriting?.cancel()
         databaseSearchWordWriting = scopeIo.launch {
-            database.searchWordDao().insert(SearchWord(System.currentTimeMillis(), searchWord))
+            database.searchWordDao().insert(
+                ru.brauer.historyscreen.datasource.database.SearchWord(
+                    System.currentTimeMillis(),
+                    searchWord
+                )
+            )
         }
     }
 }

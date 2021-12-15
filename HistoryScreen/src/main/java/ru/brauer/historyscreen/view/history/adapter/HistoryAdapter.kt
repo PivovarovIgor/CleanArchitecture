@@ -1,15 +1,14 @@
-package ru.brauer.cleanarchitecture.view.history.adapter
+package ru.brauer.historyscreen.view.history.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import ru.brauer.cleanarchitecture.databinding.ActivityHistoryRecyclerviewItemBinding
-import ru.brauer.cleanarchitecture.model.datasource.database.SearchWord
+import ru.brauer.historyscreen.databinding.ActivityHistoryRecyclerviewItemBinding
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
-    var data: List<SearchWord> = listOf()
+    var data: List<ru.brauer.historyscreen.datasource.database.SearchWord> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -32,7 +31,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ActivityHistoryRecyclerviewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(searchWord: SearchWord) {
+        fun bind(searchWord: ru.brauer.historyscreen.datasource.database.SearchWord) {
             binding.dateTime.text = searchWord.dateTime.toString()
             binding.searchWord.text = searchWord.searchWord
         }

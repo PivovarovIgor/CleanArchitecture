@@ -1,0 +1,28 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation Dependencies.CORE_KTX_DEP
+    implementation Dependencies.ANDROIDX_DEP
+    implementation Dependencies.MATERIAL_DEP
+
+    //Room
+    implementation Dependencies.ROOM_DEP
+    kapt Dependencies.ROOM_KAPT_DEP
+
+    //Koin
+    implementation Dependencies.KOIN_CORE_DEP
+    implementation Dependencies.KOIN_ANDROID_DEP
+    implementation Dependencies.KOIN_ANDROID_COMPAT_DEP
+}

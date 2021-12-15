@@ -1,4 +1,4 @@
-package ru.brauer.cleanarchitecture.model.datasource.database
+package ru.brauer.historyscreen.datasource.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

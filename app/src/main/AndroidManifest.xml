@@ -17,7 +17,7 @@
             android:name=".view.detail.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.history.HistoryActivity"
+            android:name="ru.brauer.historyscreen.view.history.HistoryActivity"
             android:exported="false" />
         <activity
             android:name=".view.meanings.MeaningsActivity"

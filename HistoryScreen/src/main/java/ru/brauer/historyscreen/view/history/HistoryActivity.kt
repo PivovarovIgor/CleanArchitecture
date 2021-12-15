@@ -1,12 +1,11 @@
-package ru.brauer.cleanarchitecture.view.history
+package ru.brauer.historyscreen.view.history
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.brauer.cleanarchitecture.databinding.ActivityHistoryBinding
-import ru.brauer.cleanarchitecture.model.datasource.database.SearchWord
-import ru.brauer.cleanarchitecture.view.history.adapter.HistoryAdapter
+import ru.brauer.historyscreen.databinding.ActivityHistoryBinding
+import ru.brauer.historyscreen.view.history.adapter.HistoryAdapter
 
 class HistoryActivity : AppCompatActivity() {
 
@@ -29,7 +28,7 @@ class HistoryActivity : AppCompatActivity() {
         viewModel.getData().observe(this, ::renderData)
     }
 
-    private fun renderData(historySearch: List<SearchWord>) {
+    private fun renderData(historySearch: List<ru.brauer.historyscreen.datasource.database.SearchWord>) {
         adapter.data = historySearch
     }
 }
