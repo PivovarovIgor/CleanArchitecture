@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.scope.Scope
 import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
 import ru.brauer.appcore.model.data.DataModel
 import ru.brauer.appcore.model.data.Meanings
@@ -13,7 +15,11 @@ import ru.brauer.cleanarchitecture.view.meanings.adapter.MeaningsAdapter
 
 class MeaningsActivity : AppCompatActivity() {
 
-    private val viewModel: MeaningsViewModel by viewModel()
+    private val scope: Scope by lazy {
+        getKoin().getOrCreateScope<MeaningsActivity>("Meanings")
+    }
+
+    private val viewModel: MeaningsViewModel by scope.inject()
 
     private val binding: ActivityMeaningsBinding by lazy {
         ActivityMeaningsBinding.inflate(layoutInflater)
@@ -49,6 +55,11 @@ class MeaningsActivity : AppCompatActivity() {
 
     private fun renderData(appState: List<Meanings>) {
         adapter.setData(appState)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        scope.close()
     }
 
     companion object {

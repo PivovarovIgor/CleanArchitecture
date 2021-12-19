@@ -3,13 +3,18 @@ package ru.brauer.historyscreen.view.history
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.getKoin
+import org.koin.core.scope.Scope
 import ru.brauer.historyscreen.databinding.ActivityHistoryBinding
 import ru.brauer.historyscreen.view.history.adapter.HistoryAdapter
 
 class HistoryActivity : AppCompatActivity() {
 
-    private val viewModel: HistoryViewModel by viewModel()
+    private val scope: Scope by lazy {
+        getKoin().getOrCreateScope<HistoryActivity>("SearchHistory")
+    }
+
+    private val viewModel: HistoryViewModel by scope.inject()
     private val adapter: HistoryAdapter = HistoryAdapter()
 
     private val binding: ActivityHistoryBinding by lazy {
@@ -30,5 +35,10 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun renderData(historySearch: List<ru.brauer.historyscreen.datasource.database.SearchWord>) {
         adapter.data = historySearch
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        scope.close()
     }
 }

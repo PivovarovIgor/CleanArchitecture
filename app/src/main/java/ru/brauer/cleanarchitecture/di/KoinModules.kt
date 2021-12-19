@@ -23,10 +23,12 @@ import ru.brauer.cleanarchitecture.rx.ISchedulerProvider
 import ru.brauer.cleanarchitecture.rx.SchedulerProvider
 import ru.brauer.cleanarchitecture.view.main.MainInteractor
 import ru.brauer.cleanarchitecture.view.main.MainViewModel
+import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsViewModel
 import ru.brauer.historyscreen.datasource.database.SearchWord
 import ru.brauer.historyscreen.model.repository.HistoryRepository
 import ru.brauer.historyscreen.model.repository.HistoryRepositoryImpl
+import ru.brauer.historyscreen.view.history.HistoryActivity
 import ru.brauer.historyscreen.view.history.HistoryViewModel
 
 
@@ -89,8 +91,12 @@ object DI {
             )
         }
 
-        viewModel { MeaningsViewModel(compositeDisposable = get()) }
+        scope<MeaningsActivity> {
+            scoped { MeaningsViewModel(compositeDisposable = get()) }
+        }
 
-        viewModel { HistoryViewModel(repository = get()) }
+        scope<HistoryActivity> {
+            scoped { HistoryViewModel(repository = get()) }
+        }
     }
 }
