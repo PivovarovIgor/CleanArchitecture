@@ -6,18 +6,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.brauer.appcore.model.data.DataModel
+import ru.brauer.appcore.view.BaseActivity
 import ru.brauer.cleanarchitecture.*
 import ru.brauer.cleanarchitecture.databinding.ActivityMainBinding
 import ru.brauer.cleanarchitecture.model.data.AppState
-import ru.brauer.appcore.model.data.DataModel
-import ru.brauer.historyscreen.view.history.HistoryActivity
 import ru.brauer.cleanarchitecture.view.main.adapter.MainAdapter
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
+import ru.brauer.historyscreen.view.history.HistoryActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

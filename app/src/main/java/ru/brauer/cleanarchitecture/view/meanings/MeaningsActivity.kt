@@ -2,18 +2,17 @@ package ru.brauer.cleanarchitecture.view.meanings
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
-import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
 import ru.brauer.appcore.model.data.DataModel
 import ru.brauer.appcore.model.data.Meanings
+import ru.brauer.appcore.view.BaseActivity
+import ru.brauer.cleanarchitecture.databinding.ActivityMeaningsBinding
 import ru.brauer.cleanarchitecture.view.detail.DetailsActivity
 import ru.brauer.cleanarchitecture.view.meanings.adapter.MeaningsAdapter
 
-class MeaningsActivity : AppCompatActivity() {
+class MeaningsActivity : BaseActivity() {
 
     private val scope: Scope by lazy {
         getKoin().getOrCreateScope<MeaningsActivity>("Meanings")

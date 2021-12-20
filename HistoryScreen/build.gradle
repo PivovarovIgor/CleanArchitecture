@@ -25,4 +25,7 @@ dependencies {
     implementation Dependencies.KOIN_CORE_DEP
     implementation Dependencies.KOIN_ANDROID_DEP
     implementation Dependencies.KOIN_ANDROID_COMPAT_DEP
+
+    //Module AppCore
+    implementation project(["path" : ":AppCore"])
 }

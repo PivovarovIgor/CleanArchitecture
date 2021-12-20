@@ -1,9 +1,9 @@
 package ru.brauer.cleanarchitecture
 
 import android.app.Application
-import android.content.Context
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.brauer.appcore.di.DIOfCore
 import ru.brauer.cleanarchitecture.di.DI
 
 class App : Application() {
@@ -12,7 +12,7 @@ class App : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
-            modules(listOf(DI.mainModule))
+            modules(listOf(DI.mainModule, DIOfCore.coreModule))
         }
     }
 }

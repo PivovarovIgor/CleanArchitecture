@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.ext.android.getKoin
 import org.koin.core.scope.Scope
+import ru.brauer.appcore.view.BaseActivity
 import ru.brauer.historyscreen.databinding.ActivityHistoryBinding
 import ru.brauer.historyscreen.view.history.adapter.HistoryAdapter
 
-class HistoryActivity : AppCompatActivity() {
+class HistoryActivity : BaseActivity() {
 
     private val scope: Scope by lazy {
         getKoin().getOrCreateScope<HistoryActivity>("SearchHistory")

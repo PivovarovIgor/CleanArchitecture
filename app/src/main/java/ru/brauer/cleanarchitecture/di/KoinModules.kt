@@ -21,6 +21,7 @@ import ru.brauer.cleanarchitecture.model.repository.RepositoryLocal
 import ru.brauer.cleanarchitecture.model.repository.RepositoryLocalImplementation
 import ru.brauer.cleanarchitecture.rx.ISchedulerProvider
 import ru.brauer.cleanarchitecture.rx.SchedulerProvider
+import ru.brauer.appcore.view.OnLineLiveData
 import ru.brauer.cleanarchitecture.view.main.MainInteractor
 import ru.brauer.cleanarchitecture.view.main.MainViewModel
 import ru.brauer.cleanarchitecture.view.meanings.MeaningsActivity
@@ -53,6 +54,7 @@ object DI {
             )
         }
 
+        single { OnLineLiveData(androidContext()) }
         single { CompositeDisposable() }
         single<ISchedulerProvider> { SchedulerProvider() }
         single<RepositoryLocal> { RepositoryLocalImplementation(get()) }

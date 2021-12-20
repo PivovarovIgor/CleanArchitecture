@@ -24,4 +24,9 @@ dependencies {
     implementation Dependencies.ANDROIDX_DEP
     implementation Dependencies.MATERIAL_DEP
     implementation Dependencies.RETROFIT_2_CONVERTER_GSON_DEP
+
+    //Koin
+    implementation Dependencies.KOIN_CORE_DEP
+    implementation Dependencies.KOIN_ANDROID_DEP
+    implementation Dependencies.KOIN_ANDROID_COMPAT_DEP
 }
