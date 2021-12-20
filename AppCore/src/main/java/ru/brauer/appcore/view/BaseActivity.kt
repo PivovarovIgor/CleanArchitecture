@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
+import ru.brauer.appcore.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
     private val onLineLiveData: OnLineLiveData by inject()
     private var snackbar: Snackbar? = null
-    
+
     override fun onResume() {
         super.onResume()
         onLineLiveData.observe(this, ::renderData)
@@ -26,7 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
             snackbar = Snackbar.make(
                 this,
                 window.decorView.rootView,
-                "Network connectivity is lost.",
+                getString(R.string.network_lost_message),
                 Snackbar.LENGTH_INDEFINITE
             ).apply { show() }
         }
