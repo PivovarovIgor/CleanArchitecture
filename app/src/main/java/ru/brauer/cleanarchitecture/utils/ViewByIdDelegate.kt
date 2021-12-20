@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import java.lang.ref.WeakReference
 import kotlin.reflect.KProperty
 
@@ -11,6 +12,10 @@ class ViewByIdDelegate<out T : View>(private val rootGetter: () -> View?, privat
 
     private var rootRef: WeakReference<View>? = null
     private var viewRef: T? = null
+
+    init {
+        println("VVV $this")
+    }
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         var view = viewRef
@@ -39,3 +44,6 @@ fun <T : View> Activity.viewById(@IdRes viewId: Int): ViewByIdDelegate<T> =
 
 fun <T : View> Fragment.viewById(@IdRes viewId: Int): ViewByIdDelegate<T> =
     ViewByIdDelegate({ view }, viewId)
+
+fun <T : View> RecyclerView.ViewHolder.viewById(@IdRes viewId: Int): ViewByIdDelegate<T> =
+    ViewByIdDelegate({ itemView }, viewId)
