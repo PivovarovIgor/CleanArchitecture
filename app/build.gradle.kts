@@ -86,6 +86,9 @@ dependencies {
     //Glide
     implementation(Dependencies.GLIDE_DEP)
 
+    //Splash screen
+    implementation("androidx.core:core-splashscreen:1.0.0-alpha02")
+
     //Module AppCore
     implementation(project(mapOf("path" to ":AppCore")))
 
