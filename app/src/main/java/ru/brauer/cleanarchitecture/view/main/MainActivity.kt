@@ -1,16 +1,19 @@
 package ru.brauer.cleanarchitecture.view.main
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewTreeObserver
+import android.view.animation.AnticipateInterpolator
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,11 +46,13 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val splashScreen = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             installSplashScreen()
-            delaySplashScreen()
+                .also { delaySplashScreen() }
+                .also { AnimationExitSplashScreen(it) }
         } else {
             setTheme(R.style.Theme_CleanArchitecture)
             null
         }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -63,6 +68,21 @@ class MainActivity : BaseActivity() {
                 }
             })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+        }
+    }
+
+    private fun AnimationExitSplashScreen(splashScreen: SplashScreen) {
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            val slideLeft = ObjectAnimator.ofFloat(
+                splashScreenView.view,
+                View.TRANSLATION_X,
+                0f,
+                -splashScreenView.view.height.toFloat()
+            )
+            slideLeft.interpolator = AnticipateInterpolator()
+            slideLeft.duration = 1000L
+            slideLeft.doOnEnd { splashScreenView.remove() }
+            slideLeft.start()
         }
     }
 
