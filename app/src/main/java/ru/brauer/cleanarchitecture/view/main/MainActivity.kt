@@ -3,10 +3,14 @@ package ru.brauer.cleanarchitecture.view.main
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.ViewTreeObserver
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,6 +43,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val splashScreen = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             installSplashScreen()
+            delaySplashScreen()
         } else {
             setTheme(R.style.Theme_CleanArchitecture)
             null
@@ -59,6 +64,32 @@ class MainActivity : BaseActivity() {
             })
             searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
         }
+    }
+
+    private fun delaySplashScreen() {
+        var isHideSplashScreen = false
+
+        object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                isHideSplashScreen = true
+            }
+        }.start()
+
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    return if (isHideSplashScreen) {
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        false
+                    }
+                }
+            }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
