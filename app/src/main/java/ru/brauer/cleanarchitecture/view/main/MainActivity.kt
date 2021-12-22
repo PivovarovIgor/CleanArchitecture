@@ -46,7 +46,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val splashScreen = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             installSplashScreen()
-                .also { delaySplashScreen() }
+                .also { setSplashScreenDuration() }
                 .also { AnimationExitSplashScreen(it) }
         } else {
             setTheme(R.style.Theme_CleanArchitecture)
@@ -86,7 +86,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun delaySplashScreen() {
+    private fun setSplashScreenDuration() {
         var isHideSplashScreen = false
 
         object : CountDownTimer(60000, 1000) {
