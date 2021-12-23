@@ -73,23 +73,23 @@ class MainActivity : BaseActivity() {
 
     private fun AnimationExitSplashScreen(splashScreen: SplashScreen) {
         splashScreen.setOnExitAnimationListener { splashScreenView ->
-            val slideLeft = ObjectAnimator.ofFloat(
+            ObjectAnimator.ofFloat(
                 splashScreenView.view,
                 View.TRANSLATION_X,
                 0f,
                 -splashScreenView.view.height.toFloat()
-            )
-            slideLeft.interpolator = AnticipateInterpolator()
-            slideLeft.duration = 1000L
-            slideLeft.doOnEnd { splashScreenView.remove() }
-            slideLeft.start()
+            ).apply {
+                interpolator = AnticipateInterpolator()
+                duration = 1000L
+                doOnEnd { splashScreenView.remove() }
+            }.start()
         }
     }
 
     private fun setSplashScreenDuration() {
         var isHideSplashScreen = false
 
-        object : CountDownTimer(60000, 1000) {
+        object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
