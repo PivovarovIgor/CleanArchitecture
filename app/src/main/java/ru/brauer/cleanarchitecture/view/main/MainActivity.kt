@@ -44,13 +44,12 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             installSplashScreen()
                 .also { setSplashScreenDuration() }
                 .also { AnimationExitSplashScreen(it) }
         } else {
             setTheme(R.style.Theme_CleanArchitecture)
-            null
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -80,7 +79,7 @@ class MainActivity : BaseActivity() {
                 -splashScreenView.view.height.toFloat()
             ).apply {
                 interpolator = AnticipateInterpolator()
-                duration = 1000L
+                duration = ANIMATION_DURATION
                 doOnEnd { splashScreenView.remove() }
             }.start()
         }
@@ -190,5 +189,6 @@ class MainActivity : BaseActivity() {
     companion object {
         private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
             "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
+        private const val ANIMATION_DURATION = 1000L
     }
 }
