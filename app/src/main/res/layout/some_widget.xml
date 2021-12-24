@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/design_default_color_primary_dark">
 
     <ImageView
+        android:id="@+id/img_on_widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_baseline_history_24" />
+        android:scaleType="centerCrop"
+        tools:src="@drawable/ic_baseline_history_24" />
 
 </FrameLayout>

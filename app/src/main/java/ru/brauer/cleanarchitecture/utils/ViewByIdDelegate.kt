@@ -13,10 +13,6 @@ class ViewByIdDelegate<out T : View>(private val rootGetter: () -> View?, privat
     private var rootRef: WeakReference<View>? = null
     private var viewRef: T? = null
 
-    init {
-        println("VVV $this")
-    }
-
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         var view = viewRef
         val cachedRoot = rootRef?.get()

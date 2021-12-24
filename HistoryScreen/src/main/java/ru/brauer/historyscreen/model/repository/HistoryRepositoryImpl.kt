@@ -6,4 +6,6 @@ import ru.brauer.historyscreen.datasource.database.SearchWord
 class HistoryRepositoryImpl(private val database: AppDataBase) :
     HistoryRepository<List<SearchWord>> {
     override fun getData(): LiveData<List<SearchWord>> = database.searchWordDao().getAll()
+    override fun getLastSearchedWord(): SearchWord? =
+        database.searchWordDao().getLastSearchedWord()
 }

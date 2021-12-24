@@ -10,8 +10,11 @@ import androidx.room.Query
 interface SearchWordDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(searchWord: ru.brauer.historyscreen.datasource.database.SearchWord)
+    fun insert(searchWord: SearchWord)
 
     @Query("SELECT * FROM search_history")
-    fun getAll(): LiveData<List<ru.brauer.historyscreen.datasource.database.SearchWord>>
+    fun getAll(): LiveData<List<SearchWord>>
+
+    @Query("SELECT * FROM search_history ORDER BY data_time DESC LIMIT 1")
+    fun getLastSearchedWord(): SearchWord?
 }
